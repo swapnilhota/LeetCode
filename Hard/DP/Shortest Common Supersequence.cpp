@@ -57,7 +57,7 @@ public:
             }
         }
         
-        string lcs="";
+        string scs="";
         
         int i=m, j=n;
         
@@ -65,7 +65,7 @@ public:
         {
             if(str1[i-1]==str2[j-1])
             {
-                lcs += str1[i-1];
+                scs += str1[i-1];
                 i--;
                 j--;
             }
@@ -73,70 +73,30 @@ public:
             {
                 if(dp[i-1][j]>dp[i][j-1])
                 {
+                    scs += str1[i-1];
                     i--;
                 }
                 else
                 {
+                    scs += str2[j-1];
                     j--;
                 }
             }
         }
         
-        reverse(lcs.begin(), lcs.end());
-        
-        vector<string> v1;
-        vector<string> v2;
-        
-        int idx=0;
-        string t="";
-        for(int i=0; i<str1.length(); i++)
+        while(i>0)
         {
-            if(str1[i]==lcs[idx] && idx<lcs.size())
-            {
-                v1.push_back(t);
-                t="";
-                idx++;
-            }
-            else
-            {
-                t += str1[i];
-            }
+            scs += str1[i-1];
+            i--;
         }
-        v1.push_back(t);
-        
-        t="";
-        idx=0;
-        
-        for(int i=0; i<str2.length(); i++)
+        while(j>0)
         {
-            if(str2[i]==lcs[idx] && idx<lcs.size())
-            {
-                v2.push_back(t);
-                t="";
-                idx++;
-            }
-            else
-            {
-                t += str2[i];
-            }
-        }
-        v2.push_back(t);
-        
-        idx=0;
-        
-        string res="";
-        
-        for(int i=0; i<v1.size(); i++)
-        {
-            res += v1[i];
-            res += v2[i];
-            if(idx<lcs.size())
-            {
-                res += lcs[idx];
-                idx++;
-            }            
+            scs += str2[j-1];
+            j--;
         }
         
-        return res;
+        reverse(scs.begin(), scs.end());
+        
+        return scs;
     }
 };
